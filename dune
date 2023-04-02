@@ -13,6 +13,11 @@
     program
     utils))
 
+(executable
+  (name opt)
+  (modules opt)
+  (libraries alu))
+
 (test
   (name test)
   (modules test tests)
