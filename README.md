@@ -1,6 +1,6 @@
 # Compiler Adventures
 
-Based on
+Based on [Predrag Gruevski](https://predr.ag)'s blog post series:
 
 - [Compiler Adventures, Part 1](https://predr.ag/blog/compiler-adventures-part1-no-op-instructions)
 
