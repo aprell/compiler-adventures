@@ -46,3 +46,14 @@ let format_instruction i =
     format_register r ^ format_operator i ^ format_operand o
 
 let print = List.iter (format_instruction >> print_endline)
+
+let optimize redundant = List.filter (not << redundant)
+
+let optimize_O1 program =
+  let redundant = function
+    | Add (_, Literal 0)
+    | Mul (_, Literal 1)
+    | Div (_, Literal 1) -> true
+    | _ -> false
+  in
+  optimize redundant program
