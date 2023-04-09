@@ -14,6 +14,10 @@ let parse_args () =
     "-O1",
     Arg.String (Parse.file >> Program.(optimize_O1 >> print)),
     "Optimize at level 1";
+
+    "-I",
+    Arg.String (Parse.file >> Program.Interpreter.(run >> ignore)),
+    "Run abstract interpreter";
   ]
   in
   Arg.parse options (fun filename -> input := Some filename) usage

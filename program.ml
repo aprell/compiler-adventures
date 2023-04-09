@@ -57,3 +57,67 @@ let optimize_O1 program =
     | _ -> false
   in
   optimize redundant program
+
+module Interpreter = struct
+  type t = (register, value) Hashtbl.t
+
+  and value =
+    | Known of int
+    | Unknown
+
+  let format_value = function
+    | Known i -> string_of_int i
+    | Unknown -> "?"
+
+  let format state =
+    Hashtbl.fold (fun r v l ->
+      sprintf "%s: %3s" (format_register r) (format_value v) :: l) state []
+    |> List.sort Stdlib.compare
+    |> String.concat ", "
+
+  let value_of_operand state = function
+    | Literal i -> Known i
+    | Register r -> Hashtbl.find state r
+
+  let eval op a b =
+    match op, a, b with
+    | "+", Known i, Known j -> Known (i + j)
+    | "*", Known i, Known j -> Known (i * j)
+    | "/", Known i, Known j -> Known (i / j)
+    | "%", Known i, Known j -> Known (i mod j)
+    | "=", Known i, Known j -> Known (Bool.to_int (i = j))
+    | "*", Unknown, Known 0
+    | "*", Known 0, Unknown -> Known 0
+    | _, Unknown, _
+    | _, _, Unknown -> Unknown
+    | _ -> invalid_arg "eval"
+
+  let initialize value =
+    let state = Hashtbl.create 5 in
+    Hashtbl.add state W value;
+    Hashtbl.add state X value;
+    Hashtbl.add state Y value;
+    Hashtbl.add state Z value;
+    state
+
+  let interpret ?(verbose = false) state instr =
+    let value = value_of_operand state in
+    let r, v = match instr with
+      | Inp r -> r, Unknown
+      | Add (r, o) -> r, eval "+" (value (Register r)) (value o)
+      | Mul (r, o) -> r, eval "*" (value (Register r)) (value o)
+      | Div (r, o) -> r, eval "/" (value (Register r)) (value o)
+      | Mod (r, o) -> r, eval "%" (value (Register r)) (value o)
+      | Eql (r, o) -> r, eval "=" (value (Register r)) (value o)
+    in
+    (* r <- v *)
+    Hashtbl.replace state r v;
+    if verbose then
+      printf "%s, %s\n"
+        (format_instruction instr)
+        (format state);
+    state
+
+  let run ?(verbose = true) =
+    List.fold_left (interpret ~verbose) (initialize (Known 0))
+end
