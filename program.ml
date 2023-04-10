@@ -121,3 +121,28 @@ module Interpreter = struct
   let run ?(verbose = true) =
     List.fold_left (interpret ~verbose) (initialize (Known 0))
 end
+
+let optimize_O2 program =
+  let open Interpreter in
+  let state = ref (initialize (Known 0)) in
+  let value = value_of_operand !state in
+  let redundant = function
+    | Add (_, o) when value o = Known 0 -> true
+    | Mul (r, _) when value (Register r) = Known 0 -> true
+    | Mul (_, o) when value o = Known 1 -> true
+    | Div (r, _) when value (Register r) = Known 0 -> true
+    | Div (_, o) when value o = Known 1 -> true
+    | Mod (r, o) -> (
+      match value (Register r), value o with
+      | Known a, Known b when a < b -> true
+      | _ -> false
+      )
+    | Eql (r, o) -> (
+      match value (Register r), value o with
+      | Known a, Known b when a == b && a == 1 -> true
+      | Known a, Known b when a <> b && a == 0 -> true
+      | _ -> false
+      )
+    | i -> state := interpret !state i; false
+  in
+  optimize redundant program

@@ -15,6 +15,10 @@ let parse_args () =
     Arg.String (Parse.file >> Program.(optimize_O1 >> print)),
     "Optimize at level 1";
 
+    "-O2",
+    Arg.String (Parse.file >> Program.(optimize_O2 >> print)),
+    "Optimize at level 2";
+
     "-I",
     Arg.String (Parse.file >> Program.Interpreter.(run >> ignore)),
     "Run abstract interpreter";
