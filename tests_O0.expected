@@ -7,6 +7,15 @@ x := x * 3
 x := x = y
 
 w := input()
+x := x + w
+w := w = x
+
+w := input()
+x := input()
+w := w = x
+w := w = 2
+
+w := input()
 z := z + w
 z := z % 2
 w := w / 2
