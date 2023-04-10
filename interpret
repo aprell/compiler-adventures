@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ -n "$(command -v tabulate)" ]; then
+    tabulate="tabulate -s, -ffancy_grid"
+else
+    tabulate="column -s, -t"
+fi
+
+./opt -I "$1" | $tabulate
