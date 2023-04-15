@@ -27,6 +27,12 @@ let sprintf ?(indent = 0) =
   let indent = String.make indent ' ' in
   Printf.ksprintf (( ^ ) indent)
 
+let gen_number init =
+  let count = ref init in
+  fun () ->
+    let c = !count in
+    incr count; c
+
 let ( >> ) f g x = g (f x)
 
 let ( << ) f g x = f (g x)

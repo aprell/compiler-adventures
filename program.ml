@@ -62,17 +62,25 @@ module Interpreter = struct
   type t = (register, value) Hashtbl.t
 
   and value =
+    | Input of number
     | Known of int
     | Unknown
 
+  and number = int
+
+  let numbers = gen_number 1
+
   let format_value = function
+    | Input i -> "I_" ^ string_of_int i
     | Known i -> string_of_int i
     | Unknown -> "?"
 
+  let format_register_value r v =
+    sprintf "%s: %3s" (format_register r) (format_value v)
+
   let format state =
-    Hashtbl.fold (fun r v l ->
-      sprintf "%s: %3s" (format_register r) (format_value v) :: l) state []
-    |> List.sort Stdlib.compare
+    [W; X; Y; Z]
+    |> List.map (fun r -> format_register_value r (Hashtbl.find state r))
     |> String.concat ", "
 
   let value_of_operand state = function
@@ -88,9 +96,15 @@ module Interpreter = struct
     | "=", Known i, Known j -> Known (Bool.to_int (i = j))
     | "*", Unknown, Known 0
     | "*", Known 0, Unknown -> Known 0
-    | _, Unknown, _
-    | _, _, Unknown -> Unknown
-    | _ -> invalid_arg "eval"
+    | "+", Input i, Known 0
+    | "+", Known 0, Input i -> Input i
+    | "*", Input i, Known 1
+    | "*", Known 1, Input i -> Input i
+    | "/", Input i, Known 1 -> Input i
+    | "/", Input i, Input j when i == j -> Known 1
+    | "%", Input i, Input j when i == j -> Known 0
+    | "=", Input i, Input j when i == j -> Known 1
+    | _ -> Unknown
 
   let initialize value =
     let state = Hashtbl.create 5 in
@@ -103,7 +117,7 @@ module Interpreter = struct
   let interpret ?(verbose = false) state instr =
     let value = value_of_operand state in
     let r, v = match instr with
-      | Inp r -> r, Unknown
+      | Inp r -> r, Input (numbers ())
       | Add (r, o) -> r, eval "+" (value (Register r)) (value o)
       | Mul (r, o) -> r, eval "*" (value (Register r)) (value o)
       | Div (r, o) -> r, eval "/" (value (Register r)) (value o)
