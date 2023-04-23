@@ -64,7 +64,7 @@ module Interpreter = struct
   and value =
     | Input of number
     | Known of int
-    | Unknown
+    | Unknown of number
 
   and number = int
 
@@ -73,7 +73,7 @@ module Interpreter = struct
   let format_value = function
     | Input i -> "I_" ^ string_of_int i
     | Known i -> string_of_int i
-    | Unknown -> "?"
+    | Unknown i -> "?_" ^ string_of_int i
 
   let format_register_value r v =
     sprintf "%s: %3s" (format_register r) (format_value v)
@@ -94,17 +94,38 @@ module Interpreter = struct
     | "/", Known i, Known j -> Known (i / j)
     | "%", Known i, Known j -> Known (i mod j)
     | "=", Known i, Known j -> Known (Bool.to_int (i = j))
-    | "*", Unknown, Known 0
-    | "*", Known 0, Unknown -> Known 0
-    | "+", Input i, Known 0
-    | "+", Known 0, Input i -> Input i
-    | "*", Input i, Known 1
-    | "*", Known 1, Input i -> Input i
+
+    | "+", Known 0, Input i
+    | "+", Input i, Known 0 -> Input i
+    | "*", Known 0, Input _
+    | "*", Input _, Known 0 -> Known 0
+    | "*", Known 1, Input i
+    | "*", Input i, Known 1 -> Input i
+    | "/", Known 0, Input _ -> Known 0
     | "/", Input i, Known 1 -> Input i
     | "/", Input i, Input j when i == j -> Known 1
+    | "%", Known 0, Input _ -> Known 0
+    | "%", Input _, Known 1 -> Known 0
     | "%", Input i, Input j when i == j -> Known 0
     | "=", Input i, Input j when i == j -> Known 1
-    | _ -> Unknown
+
+    | "+", Known 0, Unknown i
+    | "+", Unknown i, Known 0 -> Unknown i
+    | "*", Known 0, Unknown _
+    | "*", Unknown _, Known 0 -> Known 0
+    | "*", Known 1, Unknown i
+    | "*", Unknown i, Known 1 -> Unknown i
+    | "/", Known 0, Unknown _ -> Known 0
+    | "/", Unknown i, Known 1 -> Unknown i
+    | "/", Unknown i, Unknown j when i == j -> Known 1
+    | "%", Known 0, Unknown _ -> Known 0
+    | "%", Unknown _, Known 1 -> Known 0
+    | "%", Unknown i, Unknown j when i == j -> Known 0
+    | "=", Unknown i, Unknown j when i == j -> Known 1
+    | "=", Input i, Unknown j
+    | "=", Unknown i, Input j when i == j -> Known 1
+
+    | _ -> Unknown (numbers ())
 
   let initialize value =
     let state = Hashtbl.create 5 in
