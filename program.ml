@@ -90,37 +90,29 @@ module Interpreter = struct
   let eval op a b =
     match op, a, b with
     | "+", Known i, Known j -> Known (i + j)
+    | "+", _, Known 0 -> a
+    | "+", Known 0, _ -> b
+
     | "*", Known i, Known j -> Known (i * j)
+    | "*", Known 0, _
+    | "*", _, Known 0 -> Known 0
+    | "*", _, Known 1 -> a
+    | "*", Known 1, _ -> b
+
     | "/", Known i, Known j -> Known (i / j)
-    | "%", Known i, Known j -> Known (i mod j)
-    | "=", Known i, Known j -> Known (Bool.to_int (i = j))
-
-    | "+", Known 0, Input i
-    | "+", Input i, Known 0 -> Input i
-    | "*", Known 0, Input _
-    | "*", Input _, Known 0 -> Known 0
-    | "*", Known 1, Input i
-    | "*", Input i, Known 1 -> Input i
-    | "/", Known 0, Input _ -> Known 0
-    | "/", Input i, Known 1 -> Input i
+    | "/", Known 0, _ -> Known 0
+    | "/", _, Known 1 -> a
     | "/", Input i, Input j when i == j -> Known 1
-    | "%", Known 0, Input _ -> Known 0
-    | "%", Input _, Known 1 -> Known 0
-    | "%", Input i, Input j when i == j -> Known 0
-    | "=", Input i, Input j when i == j -> Known 1
-
-    | "+", Known 0, Unknown i
-    | "+", Unknown i, Known 0 -> Unknown i
-    | "*", Known 0, Unknown _
-    | "*", Unknown _, Known 0 -> Known 0
-    | "*", Known 1, Unknown i
-    | "*", Unknown i, Known 1 -> Unknown i
-    | "/", Known 0, Unknown _ -> Known 0
-    | "/", Unknown i, Known 1 -> Unknown i
     | "/", Unknown i, Unknown j when i == j -> Known 1
-    | "%", Known 0, Unknown _ -> Known 0
-    | "%", Unknown _, Known 1 -> Known 0
+
+    | "%", Known i, Known j -> Known (i mod j)
+    | "%", Known 0, _ -> Known 0
+    | "%", _, Known 1 -> Known 0
+    | "%", Input i, Input j when i == j -> Known 0
     | "%", Unknown i, Unknown j when i == j -> Known 0
+
+    | "=", Known i, Known j -> Known (Bool.to_int (i = j))
+    | "=", Input i, Input j when i == j -> Known 1
     | "=", Unknown i, Unknown j when i == j -> Known 1
     | "=", Input i, Unknown j
     | "=", Unknown i, Input j when i == j -> Known 1
