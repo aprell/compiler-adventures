@@ -1,20 +1,27 @@
-x := input()
-x := x * -1
-
+01.txt
 x := input()
 y := input()
 x := x * 3
 x := x = y
 
+02.txt
 w := input()
 x := x + w
 w := w = x
 
+03.txt
 w := input()
 x := input()
 w := w = x
 w := w = 2
 
+04.txt
+w := input()
+w := w + 3
+x := x + w
+w := w = x
+
+05.txt
 w := input()
 z := z + w
 z := z % 2
@@ -27,18 +34,14 @@ x := x % 2
 w := w / 2
 w := w % 2
 
+aoc_2021.txt
 w := input()
-x := x * 0
-x := x + z
-x := x % 26
 x := x + 11
 x := x = w
 x := x = 0
-y := y * 0
 y := y + 25
 y := y * x
 y := y + 1
-z := z * y
 y := y * 0
 y := y + w
 y := y + 3

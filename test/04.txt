@@ -1,0 +1,5 @@
+inp w
+add w 3
+mul x 0
+add x w
+eql w x

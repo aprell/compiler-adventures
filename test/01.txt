@@ -1,0 +1,4 @@
+inp x
+inp y
+mul x 3
+eql x y

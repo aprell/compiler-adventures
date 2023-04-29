@@ -18,49 +18,6 @@
   (modules opt)
   (libraries alu))
 
-(tests
-  (names
-    test_O0
-    test_O1
-    test_O2)
-  (modules
-    test_O0
-    test_O1
-    test_O2
-    tests)
-  (deps aoc_2021.txt)
-  (libraries alu))
-
-(rule
-  (with-stdout-to
-    tests_O0.output
-    (run ./test_O0.exe)))
-
-(rule
-  (with-stdout-to
-    tests_O1.output
-    (run ./test_O1.exe)))
-
-(rule
-  (with-stdout-to
-    tests_O2.output
-    (run ./test_O2.exe)))
-
-(rule
-  (alias runtest)
-  (action
-    (diff tests_O0.expected tests_O0.output)))
-
-(rule
-  (alias runtest)
-  (action
-    (diff tests_O1.expected tests_O1.output)))
-
-(rule
-  (alias runtest)
-  (action
-    (diff tests_O2.expected tests_O2.output)))
-
 ;; FileCheck
 ; (rule
 ;   (alias runtest)
