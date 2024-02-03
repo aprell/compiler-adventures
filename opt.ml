@@ -20,7 +20,7 @@ let parse_args () =
     "Optimize at level 2";
 
     "-I",
-    Arg.String (Parse.file >> Program.Interpreter.(run >> ignore)),
+    Arg.String (Parse.file >> Program.interpret),
     "Run abstract interpreter";
   ]
   in

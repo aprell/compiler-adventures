@@ -173,3 +173,5 @@ let optimize_O2 program =
     | i -> state := interpret !state i; false
   in
   optimize redundant program
+
+let interpret = Interpreter.run >> ignore
