@@ -1,9 +1,7 @@
 open Alu
 open Utils
 
-let input = ref None
-
-let parse_args () =
+let () =
   let prog = Sys.argv.(0) in
   let usage = sprintf "Usage: %s [OPTION] filename" prog in
   let options = [
@@ -24,13 +22,5 @@ let parse_args () =
     "Run abstract interpreter";
   ]
   in
-  Arg.parse options (fun filename -> input := Some filename) usage
-
-let () =
-  parse_args ();
-  match !input with
-  | Some filename ->
-    (* Default is -O0 *)
-    let action = Parse.file >> Program.print in
-    action filename
-  | None -> ()
+  (* Default is -O0 *)
+  Arg.parse options (Parse.file >> Program.print) usage
