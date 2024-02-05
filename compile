@@ -1,0 +1,16 @@
+#!/bin/sh
+
+case "$1" in
+    -save-temps|--save-temps)
+        mkdir -p tmp
+        out="$(mktemp --tmpdir=tmp --suffix=.c tmpXXXXXXXX)"
+        shift
+        ;;
+esac
+
+if [ -n "$out" ]; then
+    dune exec ./compile.exe -- "$@" > "$out"
+    cc -Wall -Wextra "$out"
+else
+    dune exec ./compile.exe -- "$@" | cc -Wall -Wextra -xc -
+fi
