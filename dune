@@ -18,6 +18,11 @@
   (modules opt)
   (libraries alu))
 
+(executable
+  (name compile)
+  (modules compile)
+  (libraries alu))
+
 ;; FileCheck
 ; (rule
 ;   (alias runtest)

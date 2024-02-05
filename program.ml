@@ -175,3 +175,58 @@ let optimize_O2 program =
   optimize redundant program
 
 let interpret = Interpreter.run >> ignore
+
+module Compiler = struct
+  let format_instruction i =
+    let indent = 4 in
+    match i with
+    | Inp r ->
+      sprintf ~indent "scanf(\"%%d\", &%s);"
+        (format_register r)
+    | Add (r, o) ->
+      sprintf ~indent "%s = %s + %s;"
+        (format_register r) (format_register r) (format_operand o)
+    | Mul (r, o) ->
+      sprintf ~indent "%s = %s * %s;"
+        (format_register r) (format_register r) (format_operand o)
+    | Div (r, o) ->
+      sprintf ~indent "%s = %s / %s;"
+        (format_register r) (format_register r) (format_operand o)
+    | Mod (r, o) ->
+      sprintf ~indent "%s = %s %% %s;"
+        (format_register r) (format_register r) (format_operand o)
+    | Eql (r, o) ->
+      sprintf ~indent "%s = %s == %s;"
+        (format_register r) (format_register r) (format_operand o)
+
+  let format_instructions =
+    List.map format_instruction >> String.concat "\n"
+
+  let run ?out program =
+    let out = match out with
+      | Some filename -> open_out filename
+      | None -> stdout
+    in
+    fprintf out {|
+#include <stdio.h>
+
+int main(void) {
+    int w = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+
+%s
+
+    printf("w: %%3d\n", w);
+    printf("x: %%3d\n", x);
+    printf("y: %%3d\n", y);
+    printf("z: %%3d\n", z);
+
+    return 0;
+}
+|}
+    (format_instructions program)
+end
+
+let compile = Compiler.run

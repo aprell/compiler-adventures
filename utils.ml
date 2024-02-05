@@ -19,6 +19,10 @@ let read_file_into_string name =
   close_in file;
   lines
 
+let fprintf out ?(indent = 0) =
+  print_string (String.make indent ' ');
+  Printf.fprintf out
+
 let printf ?(indent = 0) =
   print_string (String.make indent ' ');
   Printf.printf
