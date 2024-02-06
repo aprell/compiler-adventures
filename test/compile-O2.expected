@@ -1,0 +1,378 @@
+01.txt
+
+#include <stdio.h>
+
+int main(void) {
+    int w = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+
+    scanf("%d", &x);
+    scanf("%d", &y);
+    x = x * 3;
+    x = x == y;
+
+    printf("w: %3d\n", w);
+    printf("x: %3d\n", x);
+    printf("y: %3d\n", y);
+    printf("z: %3d\n", z);
+
+    return 0;
+}
+
+02.txt
+
+#include <stdio.h>
+
+int main(void) {
+    int w = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+
+    scanf("%d", &w);
+    x = x + w;
+    w = w == x;
+
+    printf("w: %3d\n", w);
+    printf("x: %3d\n", x);
+    printf("y: %3d\n", y);
+    printf("z: %3d\n", z);
+
+    return 0;
+}
+
+03.txt
+
+#include <stdio.h>
+
+int main(void) {
+    int w = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+
+    scanf("%d", &w);
+    scanf("%d", &x);
+    w = w == x;
+    w = w == 2;
+
+    printf("w: %3d\n", w);
+    printf("x: %3d\n", x);
+    printf("y: %3d\n", y);
+    printf("z: %3d\n", z);
+
+    return 0;
+}
+
+04.txt
+
+#include <stdio.h>
+
+int main(void) {
+    int w = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+
+    scanf("%d", &w);
+    w = w + 3;
+    x = x + w;
+    w = w == x;
+
+    printf("w: %3d\n", w);
+    printf("x: %3d\n", x);
+    printf("y: %3d\n", y);
+    printf("z: %3d\n", z);
+
+    return 0;
+}
+
+05.txt
+
+#include <stdio.h>
+
+int main(void) {
+    int w = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+
+    scanf("%d", &w);
+    z = z + w;
+    z = z % 2;
+    w = w / 2;
+    y = y + w;
+    y = y % 2;
+    w = w / 2;
+    x = x + w;
+    x = x % 2;
+    w = w / 2;
+    w = w % 2;
+
+    printf("w: %3d\n", w);
+    printf("x: %3d\n", x);
+    printf("y: %3d\n", y);
+    printf("z: %3d\n", z);
+
+    return 0;
+}
+
+aoc_2021.txt
+
+#include <stdio.h>
+
+int main(void) {
+    int w = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+
+    scanf("%d", &w);
+    x = x + 11;
+    x = x == w;
+    x = x == 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    y = y * 0;
+    y = y + w;
+    y = y + 3;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    x = x + 14;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 7;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    x = x + 13;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 1;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    z = z / 26;
+    x = x + -4;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 6;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    x = x + 11;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 14;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    x = x + 10;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 7;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    z = z / 26;
+    x = x + -4;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 9;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    z = z / 26;
+    x = x + -12;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 9;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    x = x + 10;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 6;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    z = z / 26;
+    x = x + -11;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 4;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    x = x + 12;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    z = z / 26;
+    x = x + -1;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 7;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    z = z / 26;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 12;
+    y = y * x;
+    z = z + y;
+    scanf("%d", &w);
+    x = x * 0;
+    x = x + z;
+    x = x % 26;
+    z = z / 26;
+    x = x + -11;
+    x = x == w;
+    x = x == 0;
+    y = y * 0;
+    y = y + 25;
+    y = y * x;
+    y = y + 1;
+    z = z * y;
+    y = y * 0;
+    y = y + w;
+    y = y + 1;
+    y = y * x;
+    z = z + y;
+
+    printf("w: %3d\n", w);
+    printf("x: %3d\n", x);
+    printf("y: %3d\n", y);
+    printf("z: %3d\n", z);
+
+    return 0;
+}
+
