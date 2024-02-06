@@ -29,6 +29,5 @@ setup.log
 _opam/
 
 test/*.output
-tmp
 
 a.out
