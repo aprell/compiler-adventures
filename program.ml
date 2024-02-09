@@ -203,11 +203,11 @@ module Compiler = struct
     List.map format_instruction >> String.concat "\n"
 
   let run ?out program =
-    let out = match out with
+    let file = match out with
       | Some filename -> open_out filename
       | None -> stdout
     in
-    fprintf out {|
+    fprintf file {|
 #include <stdio.h>
 
 int main(void) {
@@ -226,7 +226,8 @@ int main(void) {
     return 0;
 }
 |}
-    (format_instructions program)
+    (format_instructions program);
+    Option.iter (fun _ -> close_out file) out
 end
 
 let compile = Compiler.run
