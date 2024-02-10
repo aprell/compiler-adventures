@@ -68,7 +68,9 @@ module Interpreter = struct
 
   and number = int
 
-  let numbers = gen_number 1
+  let inputs = gen_number 1
+
+  let unknowns = gen_number 1
 
   let format_value = function
     | Input i -> "I_" ^ string_of_int i
@@ -117,7 +119,7 @@ module Interpreter = struct
     | "=", Input i, Unknown j
     | "=", Unknown i, Input j when i == j -> Known 1
 
-    | _ -> Unknown (numbers ())
+    | _ -> Unknown (unknowns ())
 
   let initialize value =
     let state = Hashtbl.create 5 in
@@ -130,7 +132,7 @@ module Interpreter = struct
   let interpret ?(verbose = false) state instr =
     let value = value_of_operand state in
     let r, v = match instr with
-      | Inp r -> r, Input (numbers ())
+      | Inp r -> r, Input (inputs ())
       | Add (r, o) -> r, eval "+" (value (Register r)) (value o)
       | Mul (r, o) -> r, eval "*" (value (Register r)) (value o)
       | Div (r, o) -> r, eval "/" (value (Register r)) (value o)
