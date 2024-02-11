@@ -20,6 +20,10 @@ let () =
     "-I",
     Arg.String (Parse.file >> Program.interpret),
     "Run abstract interpreter";
+
+    "-Iv",
+    Arg.String (Parse.file >> Program.interpret ~verbose:true),
+    "Run abstract interpreter (verbose output)";
   ]
   in
   (* Default is -O0 *)

@@ -6,4 +6,4 @@ else
     tabulate="column -s, -t"
 fi
 
-./opt -I "$1" | $tabulate
+./opt -Iv "$1" | head -n -1 | $tabulate

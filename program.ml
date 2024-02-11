@@ -147,8 +147,9 @@ module Interpreter = struct
         (format state);
     state
 
-  let run ?(verbose = true) =
+  let run ?(verbose = false) =
     List.fold_left (interpret ~verbose) (initialize (Known 0))
+    >> (print_endline << format)
 end
 
 let optimize_O2 program =
@@ -176,7 +177,7 @@ let optimize_O2 program =
   in
   optimize redundant program
 
-let interpret = Interpreter.run >> ignore
+let interpret ?(verbose = false) = Interpreter.run ~verbose >> ignore
 
 module Compiler = struct
   let format_instruction i =
