@@ -14,6 +14,7 @@ test:
 	@test/expect.sh compile_and_run -O2
 	@diff -u --color=always test/compile_and_run-O0.expected test/compile_and_run-O1.expected
 	@diff -u --color=always test/compile_and_run-O1.expected test/compile_and_run-O2.expected
+	@for t in test/*.txt; do test/check_interpret.sh $$t > /dev/null; done
 
 clean:
 	@dune clean
